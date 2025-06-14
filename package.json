@@ -6,7 +6,11 @@
   "scripts": {
     "start": "vite",
     "dev": "vite",
-    "build": "tsc && vite build",
+    "dev:frontend": "vite",
+    "dev:backend": "cd backend && npm run dev",
+    "build": "cd frontend && npm install && npm run build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d frontend/dist",
     "preview": "vite preview",
     "server": "cd backend && npm run dev"
   },
@@ -33,6 +37,9 @@
     "web-vitals": "^5.0.3"
   },
   "devDependencies": {
-    "nodemon": "^3.1.10"
+    "concurrently": "^8.2.1",
+    "gh-pages": "^6.3.0",
+    "nodemon": "^3.1.10",
+    "vercel": "^43.1.0"
   }
 }
