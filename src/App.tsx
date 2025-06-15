@@ -52,10 +52,17 @@ function App() {
     setError('');
     
     try {
-      const response = await axios.post('/api/analyze', { url });
+      const apiUrl = import.meta.env.DEV 
+        ? 'https://seo-tag-inspector-backend2.onrender.com/api/analyze' 
+        : '/api/analyze';
+      
+      const response = await axios.post(apiUrl, { 
+        url: url.startsWith('http') ? url : `https://${url}`
+      });
+      
       setResult(response.data);
     } catch (err: any) {
-      setError(err.response?.data?.error || 'Failed to analyze URL');
+      setError(err.response?.data?.error || 'Failed to analyze URL. Please check the URL and try again.');
       console.error('Error:', err);
     } finally {
       setIsLoading(false);
@@ -184,12 +191,7 @@ function App() {
               <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden border border-gray-200 dark:border-gray-700">
                 <div className="p-5">
                   <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-                    <div className="flex items-center space-x-4">
-                      <div className="flex items-center justify-center w-12 h-12 bg-blue-50 dark:bg-blue-900/20 rounded-full flex-shrink-0">
-                        <svg className="w-6 h-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                      </div>
+                    <div className="flex items-center">
                       <div>
                         <h3 className="text-base font-medium text-gray-900 dark:text-white">SEO Score</h3>
                         <p className="text-sm text-gray-500 dark:text-gray-400">
