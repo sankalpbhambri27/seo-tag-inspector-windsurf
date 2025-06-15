@@ -12,7 +12,12 @@ const app = express();
 const PORT = process.env.PORT || 5001;
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: ['https://seo-tag-inspector-windsurf.vercel.app', 'http://localhost:3000'],
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type'],
+  credentials: true
+}));
 app.use(express.json());
 
 // Helper function to extract meta content
