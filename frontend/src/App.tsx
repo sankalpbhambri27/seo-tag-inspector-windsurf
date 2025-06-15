@@ -52,7 +52,7 @@ function App() {
     setError('');
     
     try {
-      const response = await axios.post('https://seo-tag-inspector-backend.onrender.com/api/analyze', { url });
+      const response = await axios.post('https://seo-tag-inspector-backend2.onrender.com/api/analyze', { url });
       setResult(response.data);
     } catch (err: any) {
       setError(err.response?.data?.error || 'Failed to analyze URL');
