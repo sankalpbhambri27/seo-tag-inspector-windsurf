@@ -184,41 +184,10 @@ function App() {
               <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden border border-gray-200 dark:border-gray-700">
                 <div className="p-5">
                   <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-                    <div className="flex items-center gap-4">
-                      <div className="relative w-16 h-16 flex-shrink-0">
-                        <svg viewBox="0 0 36 36" className="w-full h-full">
-                          <circle
-                            cx="18"
-                            cy="18"
-                            r="15"
-                            fill="none"
-                            className="stroke-gray-200 dark:stroke-gray-700"
-                            strokeWidth="2.5"
-                          />
-                          <circle
-                            cx="18"
-                            cy="18"
-                            r="15"
-                            fill="none"
-                            className={`${
-                              result.score > 70 ? 'stroke-green-500' : 
-                              result.score > 40 ? 'stroke-yellow-500' : 'stroke-red-500'
-                            } ${isLoading ? 'animate-pulse' : ''}`}
-                            strokeWidth="2.5"
-                            strokeDasharray="100"
-                            strokeDashoffset={100 - result.score}
-                            strokeLinecap="round"
-                            transform="rotate(-90 18 18)"
-                          />
-                          <text 
-                            x="50%" 
-                            y="50%" 
-                            textAnchor="middle" 
-                            dy=".3em"
-                            className="text-lg font-bold fill-gray-900 dark:fill-white"
-                          >
-                            {result.score}
-                          </text>
+                    <div className="flex items-center space-x-4">
+                      <div className="flex items-center justify-center w-12 h-12 bg-blue-50 dark:bg-blue-900/20 rounded-full flex-shrink-0">
+                        <svg className="w-6 h-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                       </div>
                       <div>

@@ -1,46 +1,34 @@
-import { defineConfig } from 'vite';
+import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
-import path from 'path';
 
-export default defineConfig({
-  root: './frontend',
-  base: './',  // Changed from '/' to './' for better path resolution
-  publicDir: 'public',
-  plugins: [react()],
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './frontend/src'),
-    },
-  },
-  server: {
-    port: 3000,
-    proxy: {
-      '/api': {
-        target: 'https://seo-tag-inspector-backend2.onrender.com',
-        changeOrigin: true,
-        secure: false,
-        rewrite: (path) => path.replace(/^\/api/, '')
+export default defineConfig(({ command, mode }) => {
+  // Load env file based on `mode` in the current working directory.
+  // Set the third parameter to '' to load all env regardless of the `VITE_` prefix.
+  const env = loadEnv(mode, process.cwd(), '');
+  
+  return {
+    root: '.',
+    // Use VITE_BASE_URL environment variable if set, otherwise use '/'
+    base: env.VITE_BASE_URL || '/',
+    publicDir: 'public',
+    plugins: [react()],
+    build: {
+      outDir: 'dist',
+      emptyOutDir: true,
+      sourcemap: true,
+      // Ensure assets are referenced with absolute paths
+      assetsInlineLimit: 0,
+      rollupOptions: {
+        output: {
+          // This ensures consistent file names
+          entryFileNames: 'assets/[name]-[hash].js',
+          chunkFileNames: 'assets/[name]-[hash].js',
+          assetFileNames: 'assets/[name]-[hash][extname]',
+        },
       },
     },
-  },
-  build: {
-    outDir: '../dist',
-    emptyOutDir: true,
-    sourcemap: true,
-    assetsInlineLimit: 0,  // Ensure all assets are emitted as files
-    rollupOptions: {
-      output: {
-        manualChunks: undefined,
-        entryFileNames: 'assets/js/[name]-[hash].js',
-        chunkFileNames: 'assets/js/[name]-[hash].js',
-        assetFileNames: 'assets/[ext]/[name]-[hash][extname]',
-      }
+    esbuild: {
+      jsx: 'automatic',
     },
-    modulePreload: { polyfill: true },
-    target: 'esnext',
-    minify: 'esbuild',
-  },
-  esbuild: {
-    jsxInject: `import React from 'react'`
-  }
+  };
 });

@@ -8,9 +8,9 @@
     "build": "vite build",
     "preview": "vite preview",
     "deploy": "vercel --prod",
-    "dev:frontend": "vite",
     "dev:backend": "cd backend && npm run dev",
-    "server": "cd backend && npm run dev"
+    "server": "cd backend && npm run dev",
+    "clean": "rm -rf node_modules dist"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",

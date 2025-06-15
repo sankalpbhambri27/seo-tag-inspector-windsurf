@@ -15,7 +15,11 @@
       "dest": "https://seo-tag-inspector-backend2.onrender.com/api/$1"
     },
     {
-      "src": "/(.*)",
+      "src": "/assets/(.*)",
+      "headers": { "cache-control": "public, max-age=31536000, immutable" }
+    },
+    {
+      "src": "^/(.*)",
       "dest": "/index.html"
     }
   ]
