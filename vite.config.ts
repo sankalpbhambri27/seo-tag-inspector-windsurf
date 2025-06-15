@@ -4,7 +4,7 @@ import path from 'path';
 
 export default defineConfig({
   root: './frontend',
-  base: '/',
+  base: './',  // Changed from '/' to './' for better path resolution
   publicDir: 'public',
   plugins: [react()],
   resolve: {
@@ -27,13 +27,20 @@ export default defineConfig({
     outDir: '../dist',
     emptyOutDir: true,
     sourcemap: true,
+    assetsInlineLimit: 0,  // Ensure all assets are emitted as files
     rollupOptions: {
       output: {
         manualChunks: undefined,
-        entryFileNames: 'assets/[name]-[hash].js',
-        chunkFileNames: 'assets/[name]-[hash].js',
-        assetFileNames: 'assets/[name]-[hash][extname]'
+        entryFileNames: 'assets/js/[name]-[hash].js',
+        chunkFileNames: 'assets/js/[name]-[hash].js',
+        assetFileNames: 'assets/[ext]/[name]-[hash][extname]',
       }
-    }
+    },
+    modulePreload: { polyfill: true },
+    target: 'esnext',
+    minify: 'esbuild',
   },
+  esbuild: {
+    jsxInject: `import React from 'react'`
+  }
 });
