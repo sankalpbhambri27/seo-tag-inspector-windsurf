@@ -6,7 +6,7 @@ import path from 'path';
 export default defineConfig({
   root: './frontend',
   base: '/',
-  publicDir: '../public',
+  publicDir: 'public',
   plugins: [react()],
   resolve: {
     alias: {
@@ -17,7 +17,7 @@ export default defineConfig({
     port: 3000,
     proxy: {
       '/api': {
-        target: 'http://localhost:5001',
+        target: 'https://seo-tag-inspector-backend2.onrender.com',
         changeOrigin: true,
         secure: false,
       },
