@@ -2,11 +2,13 @@ services:
   - type: web
     name: seo-tag-inspector-backend
     env: node
+    region: oregon
     buildCommand: cd backend && npm install
-    startCommand: cd backend && node server.js
+    startCommand: cd backend && node --experimental-modules server.js
     envVars:
       - key: NODE_ENV
         value: production
       - key: PORT
         value: 10000
     plan: free
+    nodeVersion: 18.x
