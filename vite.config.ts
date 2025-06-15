@@ -5,7 +5,7 @@ import path from 'path';
 // https://vitejs.dev/config/
 export default defineConfig({
   root: './frontend',
-  base: '/seo-tag-inspector-windsurf/',
+  base: '/',
   publicDir: '../public',
   plugins: [react()],
   resolve: {
@@ -19,6 +19,7 @@ export default defineConfig({
       '/api': {
         target: 'http://localhost:5001',
         changeOrigin: true,
+        secure: false,
       },
     },
   },
